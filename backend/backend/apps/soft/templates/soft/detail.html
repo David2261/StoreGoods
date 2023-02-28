@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ menu.name }}{% endblock %}
+
+{% content block %}
+<h1>{{ menu.name }} | {{ menu.pub_date }}</h1>
+
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Main page{% endblock %}
+
+{% content block %}
+<ul>
+{% for menu in menu %}
+	<li><a href="{{ menu.get_absolute_url }}">{{ menu.name }}</a> || {{ menu.pub_date }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
