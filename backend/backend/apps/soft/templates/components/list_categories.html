@@ -1,0 +1,14 @@
+{% for c in sort_page %}
+
+{% if c.pk == cat_selected %}
+
+<li class="">{{ c.name }}</li>
+
+{% else %}
+
+<li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+
+
+{% endif %}
+
+{% endfor %}

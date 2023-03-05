@@ -1,3 +1,5 @@
+{% load static %}
+{% load soft_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +9,63 @@
 	<script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
-{% block content %}{% endblock %}
+
+<div class="grid grid-cols-2 px-4 m-2">
+	<div class="px-4 container mx-auto">
+	<ul>
+		{% if cat_selected == 0 %}
+		<li class="font-serif text-lg antialiased">Все категории</li>
+		{% else %}
+		<li><a href="{% url 'soft:main_page' %}" class="font-serif text-lg antialiased">Все категории</a></li>
+		{% endif %}
+
+		{% for c in cats %}
+			{% if c.soft__count > 0 %}
+				{% if c.pk == cat_selected %}
+					<li>{{ c.name }}</li>
+				{% else %}
+					<li><a href="{{ c.get_absolute_url }}">{{ c.name }}</a></li>
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+	</ul>
+	</div>
+
+	<div class="px-4 container mx-auto">
+	{% block content %}{% endblock %}
+	</div>
+</div>
+
+<div class="container mx-auto px-4 m-4">
+{% if page_obj.has_other_pages %}
+<nav>
+	{% if page_obj.has_previous %}
+	<ul class="grid grid-cols-5 px-4">
+		<li>
+			<a href="?page={{ page_obj.previous_page_number }}" class="font-serif text-lg antialiased">&lt;</a>
+		</li>
+	{% else %}
+	<ul class="grid grid-cols-4 px-4">
+	{% endif %}
+
+		{% for p in paginator.page_range %}
+		{% if page_obj.number == p %}
+		<li class="font-serif text-lg antialiased font-semibold">{{ p }}</li>
+		{% elif p >= page_obj.number|add:-2 and p <= page_obj.number|add:2 %}
+		<li>
+			<a href="?page={{ p }}" class="font-serif text-lg antialiased font-semibold">{{ p }}</a>
+		</li>
+		{% endif %}
+		{% endfor %}
+
+		{% if page_obj.has_next %}
+		<li>
+			<a href="?page={{ page_obj.next_page_number }}" class="font-serif text-lg antialiased">&gt;</a>
+		</li>
+		{% endif %}
+	</ul>
+</nav>
+{% endif %}
+</div>
 </body>
 </html>

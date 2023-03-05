@@ -2,10 +2,20 @@
 {% load static %}
 {% block title %}Main page{% endblock %}
 
-{% content block %}
+{% block content %}
 <ul>
-{% for menu in menu %}
-	<li><a href="{{ menu.get_absolute_url }}">{{ menu.name }}</a> || {{ menu.pub_date }}</li>
+{% for m in main %}
+	<li class="m-2 grid grid-cols-2">
+		<div class="grid">
+			<p class="font-serif text-lg">Категория: {{ m.cat }}</p>
+			<p class="font-serif italic text-lg">Дата: {{ m.time_update | date:"d-m-Y H:i:s" }}</p>
+		</div>
+		<div>
+			<a href="{{ m.get_absolute_url }}" class="flex">
+				<h2 class="font-serif italic text-lg">{{ m.name }}</h2>
+				<p> || {{ m.pub_date }}</p></a>
+		</div>
+	</li>
 {% endfor %}
 </ul>
 {% endblock %}

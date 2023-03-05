@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}{{ menu.name }}{% endblock %}
+{% block title %}{{ main.name }}{% endblock %}
 
 {% content block %}
-<h1>{{ menu.name }} | {{ menu.pub_date }}</h1>
+<h1>{{ main.name }} | {{ main.pub_date }}</h1>
+
+<div>
+	{{ main.content | linebreaks }}
+</div>
 
 {% endblock %}
